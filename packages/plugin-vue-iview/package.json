@@ -1,0 +1,23 @@
+{
+  "name": "build-plugin-vue-iview",
+  "version": "1.0.0",
+  "description": "The basic webpack configuration for ice project",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/tyuqing/codeless.git"
+  },
+  "keywords": [
+    "plugin",
+    "vue"
+  ],
+  "author": "tyuqing",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tyuqing/codeless/issues"
+  },
+  "homepage": "https://github.com/tyuqing/codeless#readme"
+}
