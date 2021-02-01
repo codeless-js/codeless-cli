@@ -1,8 +1,8 @@
 {
   "name": "build-plugin-vue-iview",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "description": "The basic webpack configuration for ice project",
-  "main": "index.js",
+  "main": "lib/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -12,12 +12,33 @@
   },
   "keywords": [
     "plugin",
-    "vue"
+    "vue",
+    "iview"
   ],
   "author": "tyuqing",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/tyuqing/codeless/issues"
   },
-  "homepage": "https://github.com/tyuqing/codeless#readme"
+  "homepage": "https://github.com/tyuqing/codeless#readme",
+  "dependencies": {
+    "@builder/app-helpers": "^2.0.0",
+    "@builder/user-config": "^0.2.0",
+    "build-scripts-config": "^1.0.0",
+    "chalk": "^4.0.0",
+    "copy-webpack-plugin": "^5.0.4",
+    "core-js": "^3.7.0",
+    "debug": "^4.1.1",
+    "fs-extra": "^8.1.0",
+    "html-webpack-plugin": "^4.0.0",
+    "lodash": "^4.17.15",
+    "mkcert": "^1.2.0",
+    "path-exists": "^4.0.0",
+    "postcss-plugin-rpx2vw": "^0.0.2",
+    "react-dev-utils": "^10.2.1",
+    "webpack-plugin-import": "^0.2.6"
+  },
+  "devDependencies": {
+    "webpack": "^4.41.1"
+  }
 }
