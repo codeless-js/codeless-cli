@@ -1,0 +1,35 @@
+{
+  "name": "build-plugin-vue-block",
+  "version": "0.0.0",
+  "description": "build-scripts plugin for block development",
+  "main": "lib/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/tyuqing/codeless.git"
+  },
+  "keywords": [
+    "plugin",
+    "vue",
+    "iview"
+  ],
+  "author": "tyuqing",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tyuqing/codeless/issues"
+  },
+  "homepage": "https://github.com/tyuqing/codeless#readme",
+  "dependencies": {
+    "build-scripts-config": "^0.1.6",
+    "chokidar": "^3.4.2",
+    "ejs": "^3.1.5",
+    "fs-extra": "^9.0.1",
+    "glob": "^7.1.6",
+    "html-webpack-plugin": "^3.2.0"
+  },
+  "devDependencies": {
+    "webpack": "^4.44.1"
+  }
+}
