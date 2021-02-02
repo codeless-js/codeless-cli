@@ -1,7 +1,7 @@
 {
   "files": [],
   "references": [
-    { "path": "packages/plugin-vue-iview" }
+    { "path": "packages/build-plugin-vue-iview" }
   ],
   "compilerOptions": {
     "lib": [ "es2015" ]
