@@ -1,5 +1,5 @@
 /* eslint no-useless-escape:0 */
-const fs = require('fs');
+// const fs = require('fs');
 const colorNames = require('./colorNames');
 
 module.exports = (themeFile, themeConfig, enableColorNames) => {

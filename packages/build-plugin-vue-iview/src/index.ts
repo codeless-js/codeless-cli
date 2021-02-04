@@ -17,8 +17,27 @@ function normalizeEntry(entry, preparedChunks) {
 
   return Object.keys(entry).concat(preparedName);
 }
+interface ComponentOptions {
+  bizComponent: Array<string>;
+  customPath:string;
+  componentMap: object;
 
-module.exports = async ({ onGetWebpackConfig, log, context, getAllTask }, plugionOptions = {}) => {
+}
+interface PlugionOptions {
+  themePackage: string;
+  themeConfig: string;
+  nextLibDir: string;
+  usePx2Vw: boolean;
+  px2vwOptions: object;
+  style: boolean;
+  uniteNextLib: boolean;
+  externalNext: string;
+  importOptions: object;
+  componentOptions: ComponentOptions;
+  enableColorNames: Array<string>;
+  uniteBaseComponent: string;
+}
+module.exports = async ({ onGetWebpackConfig, log, context, getAllTask }, plugionOptions:PlugionOptions) => {
   const {
     themePackage,
     themeConfig,
@@ -29,7 +48,7 @@ module.exports = async ({ onGetWebpackConfig, log, context, getAllTask }, plugio
     uniteNextLib,
     externalNext,
     importOptions = {},
-    componentOptions = {},
+    componentOptions,
     enableColorNames,
   } = plugionOptions;
   let { uniteBaseComponent } = plugionOptions;
@@ -65,7 +84,7 @@ module.exports = async ({ onGetWebpackConfig, log, context, getAllTask }, plugio
         themePackage.forEach(({ name, ...themeData }) => {
           const themePath = path.join(rootDir, 'node_modules', `${name}/variables.scss`);
           const configData = themeData.themeConfig || {};
-          let themeVars = {};
+          let themeVars = {scssVars: undefined,originTheme: undefined,cssVars:undefined};
           let calcVars = {};
           if (varsPath) {
             calcVars = getCalcVars(varsPath, themePath, configData);
@@ -208,16 +227,10 @@ module.exports = async ({ onGetWebpackConfig, log, context, getAllTask }, plugio
       // remove babel-plugin-import if external next
       if (!externalNext && !ignoreTasks.includes(taskName)) {
         const importConfigs = [{
-          libraryName: '@icedesign/base',
+          libraryName: 'iview',
           style,
-        }, {
-          libraryName: '@alife/next',
-          style,
-        }, {
-          libraryName: '@alifd/next',
-          libraryDirectory: nextLibDir,
-          style,
-          ...importOptions,
+          // libraryDirectory: nextLibDir,
+          // ...importOptions,
         }];
         ['jsx', 'tsx'].forEach((rule) => {
           config.module
@@ -238,62 +251,6 @@ module.exports = async ({ onGetWebpackConfig, log, context, getAllTask }, plugio
         });
       }
   
-      // 业务组件：不可枚举，使用 webpack-plugin-import，内置逻辑（pkg.componentConfig || pkg.stylePath）
-      // compatible with build-plugin which do not set up WebpackPluginImport
-      if (!config.plugins.get('WebpackPluginImport')) {
-        config.plugin('WebpackPluginImport')
-          .use(WebpackPluginImport, [[
-            // 老的业务组件里没有 stylePath or componentConfig
-            {
-              libraryName: /@ali\/ice-.*/,
-              stylePath: 'style.js',
-            },
-          ]]);
-      }
-  
-      // 3. uniteBaseComponent
-      // uniteBaseComponent: true => @icedesign/base（兼容老的逻辑）
-      // uniteBaseComponent: "@alife/next" => @alife/next
-      uniteBaseComponent = uniteBaseComponent && (
-        typeof uniteBaseComponent === 'string' ? uniteBaseComponent : '@icedesign/base'
-      );
-  
-      if (uniteBaseComponent) {
-        // 统一基础组件包：@ali/ice, @alife/next, @icedesign/base -> @icedesign/base
-        log.info('uniteBaseComponent 开启，基础包统一到：', uniteBaseComponent);
-  
-        const alias = {
-          // @ali/ice -> uniteBaseComponent
-          '@ali/ice/global.scss': `${uniteBaseComponent}/reset.scss`,
-          '@ali/ice/lib/row$': `${uniteBaseComponent}/lib/_components/@alife/next-grid/lib/row.js`,
-          '@ali/ice/lib/col$': `${uniteBaseComponent}/lib/_components/@alife/next-grid/lib/col.js`,
-          // sass 里 @import '~xxx'
-          '@ali/ice/base.scss': `${uniteBaseComponent}/lib/core/index.scss`,
-          '@ali/ice': uniteBaseComponent,
-  
-          // @alife/next -> uniteBaseComponent
-          '@alife/next/lib/_components/@alife/next-core/lib/index.scss': `${uniteBaseComponent}/reset.scss`,
-          '@alife/next/reset.scss': `${uniteBaseComponent}/reset.scss`,
-          // sass 里 @import '~xxx'
-          '@alife/next/variables.scss': `${uniteBaseComponent}/variables.scss`,
-          '@alife/next/lib/core/index.scss': `${uniteBaseComponent}/lib/core/index.scss`,
-          '@alife/next': `${uniteBaseComponent}`,
-  
-          // @icedesign/base -> uniteBaseComponent
-          '@icedesign/base/reset.scss': `${uniteBaseComponent}/reset.scss`,
-          // sass 里 @import '~xxx'
-          '@icedesign/base/variables.scss': `${uniteBaseComponent}/variables.scss`,
-          '@icedesign/base/lib/core/index.scss': `${uniteBaseComponent}/lib/core/index.scss`,
-          '@icedesign/base': `${uniteBaseComponent}`,
-        };
-  
-        config.merge({
-          resolve: {
-            alias,
-          },
-        });
-      }
-  
       // 4. 检测组件版本
       config.plugin('CheckIceComponentsDepsPlugin')
         .use(CheckIceComponentsDepsPlugin, [{
@@ -301,38 +258,6 @@ module.exports = async ({ onGetWebpackConfig, log, context, getAllTask }, plugio
           log,
         }]);
   
-      if (uniteNextLib) {
-        const replaceRegex = new RegExp(`(alife|alifd)/next/${nextLibDir === 'es' ? 'lib' : 'es'}`);
-        config.plugin('UniteNextLib')
-          .use(webpack.NormalModuleReplacementPlugin, [
-            /@(alife|alifd)\/next\/(.*)/,
-            function(resource) {
-              // eslint-disable-next-line no-param-reassign
-              resource.request = resource.request.replace(replaceRegex, `alifd/next/${nextLibDir}`);
-            },
-          ]);
-      }
-  
-      if (externalNext && !ignoreTasks.includes(taskName)) {
-        const externals = [];
-        if (userConfig.externals) {
-          externals.push(userConfig.externals);
-        }
-        const nextRegex = /@(alife|alifd)\/next\/(es|lib)\/([-\w+]+)$/;
-        const baseRegex = /@icedesign\/base\/lib\/([-\w+]+)$/;
-        externals.push(function(_context, request, callback) {
-          const isNext = nextRegex.test(request);
-          const isDesignBase = baseRegex.test(request);
-          if (isNext || isDesignBase) {
-            const componentName = isNext ? request.match(nextRegex)[3] : request.match(baseRegex)[1];
-            if (componentName) {
-              return callback(null, [isNext ? 'Next' : 'ICEDesignBase', upperFirst(camelCase(componentName))]);
-            }
-          }
-          return callback();
-        });
-        config.externals(externals);
-      }
       // 转化 icon content
       config.module.rule('scss').use('unicode-loader').loader(require.resolve('./webpackLoaders/unicodeLoader')).before('sass-loader');
     });
