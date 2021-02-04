@@ -5,9 +5,10 @@
   "main": "index.js",
   "scripts": {
     "build": "ts-node ./scripts/build.ts",
+    "prepublish": "npm run build",
     "publish": "ts-node ./scripts/publish-package.ts",
     "clean": "lerna clean --yes && rimraf packages/*/lib",
-    "version": "lerna version -f",
+    "version": "lerna version",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
