@@ -108,6 +108,8 @@ module.exports = (
       },
     });
 
+    config.plugin('VueLoaderPlugin').use(VueLoaderPlugin)
+
     // default devServer config
     config.merge({
       devServer: {
@@ -135,22 +137,9 @@ module.exports = (
           {
             test: /\.vue$/,
             loader: 'vue-loader',
-            options: {
-              "loaders": {
-                "css": ["vue-style-loader", { "loader": "css-loader", "options": { "minimize": false, "sourceMap": false } }],
-                "postcss": ["vue-style-loader", { "loader": "css-loader", "options": { "minimize": false, "sourceMap": false } }],
-                "sass": ["vue-style-loader", { "loader": "css-loader", "options": { "minimize": false, "sourceMap": false } }, { "loader": "sass-loader", "options": { "indentedSyntax": true, "sourceMap": false } }],
-                "scss": ["vue-style-loader", { "loader": "css-loader", "options": { "minimize": false, "sourceMap": false } }, { "loader": "sass-loader", "options": { "sourceMap": false } }]
-              },
-              "transformToRequire": { "video": "src", "source": "src", "img": "src", "image": "xlink:href" }
-            }
           },
         ]
       },
-      plugins: [
-        // make sure to include the plugin!
-        new VueLoaderPlugin()
-      ]
     });
 
     // update publicPath ./
