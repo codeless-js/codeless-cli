@@ -5,6 +5,7 @@ const chokidar = require('chokidar');
 const { getWebpackConfig, getJestConfig } = require('build-scripts-config');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ejsRender = require('./ejsRender');
+const VueLoaderPlugin = require('vue-loader/lib/plugin')
 
 const formatPath = (outputPath) => {
   const isWin = process.platform === 'win32';
@@ -145,7 +146,11 @@ module.exports = (
             }
           },
         ]
-      }
+      },
+      plugins: [
+        // make sure to include the plugin!
+        new VueLoaderPlugin()
+      ]
     });
 
     // update publicPath ./
