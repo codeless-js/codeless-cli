@@ -1,6 +1,6 @@
 {
   "name": "build-plugin-vue-block",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "build-scripts plugin for block development",
   "main": "lib/index.js",
   "scripts": {
@@ -34,6 +34,5 @@
     "vue-loader": "^15.9.6",
     "vue-style-loader": "^4.1.2",
     "webpack": "^4.44.1"
-  },
-  "devDependencies": {}
+  }
 }
