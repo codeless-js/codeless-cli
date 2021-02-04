@@ -169,12 +169,12 @@ module.exports = (
     // add alias for load Block component
     config.merge({
       resolve: {
+        extensions: ['.js', '.jsx', '.ts', '.tsx', '.vue', '.json'],
         alias: {
           '@/block': usingTemplate
-            ? path.join(rootDir, hasDemoFile ? 'demo' : '.tmp/index')
+            ? path.join(rootDir, hasDemoFile ? 'demo' : '.tmp/index.vue')
             : path.join(rootDir, hasDemoFile ? 'demo' : 'src/index'),
         },
-        extensions: ['.js', '.jsx', '.ts', '.tsx', '.vue', '.json'],
       },
     });
 
