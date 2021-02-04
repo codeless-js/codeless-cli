@@ -7,7 +7,7 @@
     "build": "ts-node ./scripts/build.ts",
     "publish": "ts-node ./scripts/publish-package.ts",
     "clean": "lerna clean --yes && rimraf packages/*/lib",
-    "version": "lerna version",
+    "version": "lerna version -f",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
