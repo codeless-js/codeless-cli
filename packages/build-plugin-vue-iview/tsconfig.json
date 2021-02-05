@@ -9,6 +9,7 @@
   },
   "exclude": [
     "template/*",
-    "__tests__/*"
+    "__tests__/*",
+    "lib/*"
   ]
 }
