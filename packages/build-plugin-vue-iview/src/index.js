@@ -2,7 +2,7 @@
 const path = require('path');
 const glob = require('glob');
 const chokidar = require('chokidar');
-const { getWebpackConfig, getJestConfig } = require('build-scripts-config');
+const { getWebpackConfig, getJestConfig } = require('build-scripts-vue-config');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ejsRender = require('./ejsRender');
 const VueLoaderPlugin = require('vue-loader/lib/plugin')

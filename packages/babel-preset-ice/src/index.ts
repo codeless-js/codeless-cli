@@ -46,12 +46,11 @@ export default (opts: IOpts = {}) => {
       opts.env && [
         '@babel/preset-env', opts.env,
       ],
-      opts.typescript && '@babel/preset-typescript',
-      opts.vue && 'env',
+      opts.typescript && '@babel/preset-typescript'
     ]),
     plugins: resolvePlugin([
       ...plugins,
-      opts.vue && 'transform-vue-jsx'
+      opts.vue && 'babel-plugin-transform-vue-jsx'
     ]),
   };
 };

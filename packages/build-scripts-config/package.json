@@ -1,6 +1,6 @@
 {
   "name": "build-scripts-vue-config",
-  "version": "0.1.0",
+  "version": "0.1.4",
   "description": "Basic configs for build-scripts and its plugins of vue",
   "main": "lib/index.js",
   "types": "types/index.d.ts",
@@ -17,7 +17,7 @@
     "webpack": "^4.41.1"
   },
   "dependencies": {
-    "@ice-builder/babel-preset-ice": "0.1.0",
+    "@ice-builder/babel-preset-ice": "^0.1.4",
     "babel-jest": "^24.9.0",
     "babel-loader": "^8.0.6",
     "camelcase": "^5.3.1",
