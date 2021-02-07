@@ -1,7 +1,7 @@
 {
   "files": [],
   "references": [
-    { "path": "packages/build-plugin-vue-iview" }
+    { "path": "packages/babel-preset-ice" }
   ],
   "compilerOptions": {
     "lib": [ "es2015" ]
