@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@github.com/tyuqing/codeless.git"
+    "url": "git+ssh://git@github.com/codeless-js/codeless-cli.git"
   },
   "keywords": [
     "plugin",
@@ -18,9 +18,9 @@
   "author": "tyuqing",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/tyuqing/codeless/issues"
+    "url": "https://github.com/codeless-js/codeless-cli/issues"
   },
-  "homepage": "https://github.com/tyuqing/codeless#readme",
+  "homepage": "https://github.com/codeless-js/codeless-cli#readme",
   "dependencies": {
     "build-scripts-vue-config": "^0.1.13",
     "chokidar": "^3.4.2",
