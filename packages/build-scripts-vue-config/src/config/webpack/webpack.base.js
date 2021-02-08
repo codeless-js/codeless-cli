@@ -7,7 +7,7 @@ module.exports = (mode) => {
 
   config.mode(mode);
   config.resolve.extensions
-    .merge(['.js', '.json', '.jsx', '.ts', '.tsx', '.vue', '.json']);
+    .merge(['.js', '.jsx', '.ts', '.tsx', '.vue', '.json']);
   // webpack loaders
   setWebpackLoaders(config, mode);
   // webpack plugins
