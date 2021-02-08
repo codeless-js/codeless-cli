@@ -1,6 +1,6 @@
 {
   "name": "build-scripts-vue-config",
-  "version": "0.1.12",
+  "version": "0.1.13",
   "description": "Basic configs for build-scripts and its plugins of vue",
   "main": "lib/index.js",
   "types": "types/index.d.ts",
