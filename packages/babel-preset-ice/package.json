@@ -1,6 +1,6 @@
 {
   "name": "@ice-builder/babel-preset-ice",
-  "version": "0.1.12",
+  "version": "0.1.14",
   "description": "Basic babel preset of vue in ice",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
