@@ -10,20 +10,16 @@
 
 ```json
 {
-  "entry": "",
-  "alias": {},
-  "publicPath": "",
-  //...
+  "plugins": [
+    ["build-plugin-vue-iview",{
+      "usingTemplate": true,
+      "materialType": "page"
+    }]
+  ]
 }
 ```
 
-### registerCliOption
-
-```bash
---port
---https
-# ...
-```
+使用方法参考queryTable物料，物料地址：https://github.com/codeless-js/vue-materials-iview/tree/master/pages/QueryTable
 
 ### webpack config
 
